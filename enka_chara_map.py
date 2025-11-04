@@ -10,6 +10,9 @@ chara_list = res.json()
 
 result = {}
 for id, data in chara_list.items():
+    if "SideIconName" not in data:
+        print(id, data)
+        continue
     name = re.search(r"^UI_AvatarIcon_Side_(.+)$", data["SideIconName"])[1]
     text_id = str(data["NameTextMapHash"])
     jp_name = text_map[text_id]
