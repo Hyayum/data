@@ -2,7 +2,7 @@ import requests
 import re
 import json
 
-res = requests.get("https://gitlab.com/Dimbreath/AnimeGameData/-/raw/master/TextMap/TextMapJP.json")    # でかすぎ
+res = requests.get("https://gitlab.com/Dimbreath/AnimeGameData/-/raw/master/TextMap/TextMap_MediumJP.json")    # でかすぎ
 text_map = res.json()
 
 res = requests.get("https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/gi/avatars.json")
