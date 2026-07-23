@@ -15,9 +15,12 @@ for id, data in chara_list.items():
         continue
     name = re.search(r"^\/ui\/UI_AvatarIcon_Side_(.+).png$", data["SideIconName"])[1]
     text_id = str(data["NameTextMapHash"])
+    if text_id not in text_map:
+        print(f"text_id not found: name={name}, text_id={text_id}")
+        continue
     jp_name = text_map[text_id]
     if name not in result:
         result[name] = jp_name
 
-with open("./enka_chara_map.json", "w") as f:
+with open("./enka_chara_map.json", "w", encoding="utf-8") as f:
     json.dump(result, f, ensure_ascii=False, indent=2)
