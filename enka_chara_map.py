@@ -2,13 +2,16 @@ import requests
 import re
 import json
 
+with open("./enka_chara_map.json", "r", encoding="utf-8") as f:
+    existing = json.load(f)
+
 res = requests.get("https://gitlab.com/Dimbreath/AnimeGameData/-/raw/master/TextMap/TextMap_MediumJP.json")    # でかすぎ
 text_map = res.json()
 
 res = requests.get("https://raw.githubusercontent.com/EnkaNetwork/API-docs/master/store/gi/avatars.json")
 chara_list = res.json()
 
-result = {}
+result = existing
 for id, data in chara_list.items():
     if "SideIconName" not in data:
         print(id, data)
@@ -16,6 +19,7 @@ for id, data in chara_list.items():
     name = re.search(r"^\/ui\/UI_AvatarIcon_Side_(.+).png$", data["SideIconName"])[1]
     text_id = str(data["NameTextMapHash"])
     if text_id not in text_map:
+        result.setdefault(name, "")
         print(f"text_id not found: name={name}, text_id={text_id}")
         continue
     jp_name = text_map[text_id]
